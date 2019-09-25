@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+  
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="jquery-ui/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        * {
+            box-sizing: border-box
+        }
+        
+        .container {
+            padding: 150px 0;
+            background-color: #fff
+        }
+        
+        input[type=email],
+        input[type=password],
+        input[type=text],
+        input[type=date] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 0 0;
+            display: inline-block;
+            border: none;
+            background: #fff;
+            border: 1px solid #000;
+        }
+        
+        input[type=email]:focus,
+        input[type=password]:focus,
+        input[type=text]:focus {
+            background-color: #ddd;
+            outline: 0
+        }
+        
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px
+        }
+        
+        .registerbtn {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: .9
+        }
+        
+        .signin {
+            background-color: #f1f1f1;
+            text-align: center
+        }
+        
+        .searchformfld {
+            position: relative;
+            margin: 5px 0
+        }
+        
+        .searchformfld label {
+            position: absolute;
+            padding-left: 10px;
+            top: 30px
+        }
+        
+        .searchformfld input:focus+label,
+        .searchformfld input:not(:placeholder-shown)+label {
+            opacity: 1;
+            transform: scale(.9) translateY(-2%) translateX(-200px);
+            color: #000
+        }
+        
+        .searchformfld input:focus {
+            border: 1px solid #000;
+            outline-color: #000
+        }
+        
+        .searchformfld {
+            padding: 15px;
+            margin: 15px 0
+        }
+        
+        .searchformfld input {
+            width: 100%;
+            padding-left: 10px
+        }
+        
+        .searchformfld input,
+        .searchformfld label {
+            transition: all .2s;
+            transition-timing-function: ease;
+            transition-timing-function: cubic-bezier(.25, .1, .25, 1);
+            opacity: .5
+        }
+        
+        body {
+            background: #ccc
+        }
+        
+        .profileshow {
+            display: none
+        }
+        
+        .gendershow {
+            display: none
+        }
+        
+        .btn-secondaryc {
+            color: #000;
+            background-color: #dedede;
+            border-color: #6c757d;
+            padding: 1rem 1.3rem
+        }
+        
+        .btn-secondaryc:hover {
+            background-color: #eb3e32;
+            border-color: #eb3e32;
+            color: #fff
+        }
+        
+        .red {
+            color: #f91000
+        }
+        
+        .gender {
+            display: none
+        }
+        
+        .select {
+            padding: 1rem;
+            width: 100%;
+            background: #e5e5e5
+        }
+        
+        .mobilenumber {
+            display: block
+        }
+        
+        ul {
+            list-style: none
+        }
+        
+        .m-language {
+            position: relative;
+        }
+        
+        .motherlanguage {
+            background: #fff;
+            width: 100%;
+            height: 150px;
+            position: absolute;
+            cursor: pointer;
+            overflow: auto;
+            border: 1px solid #000;
+            top: -59px;
+            display: none;
+            z-index: 900
+        }
+        
+        .motherlanguageblock {
+            background: #fff;
+            width: 100%;
+            height: 150px;
+            position: absolute;
+            cursor: pointer;
+            overflow: auto;
+            border: 1px solid #000;
+            top: -33px;
+            z-index: 99;
+        }
+        
+        .motherlanguage ul {
+            display: block
+        }
+        
+        .motherlanguage ul li a {
+            text-decoration: none;
+            color: #000
+        }
+        
+        .arrowup {
+            display: none;
+            position: relative;
+            top: -55px;
+            left: 25px;
+            z-index: 9900
+        }
+        
+        .arrowupblock {
+            display: block;
+            position: relative;
+            top: -44px;
+            left: 25px;
+            z-index: 9900;
+            height: 12px
+        }
+        
+        .arrownone {
+            display: none!important;
+        }
+        
+        .languagenone {
+            display: none!important;
+        }
+        
+        .religion-l {
+            position: relative;
+        }
+        
+        .religionblk {
+            background: #fff;
+            width: 100%;
+            height: 150px;
+            position: absolute;
+            cursor: pointer;
+            overflow: auto;
+            border: 1px solid #000;
+            top: -59px;
+            display: none
+        }
+        
+        .religionblk-show {
+            background: #fff;
+            width: 100%;
+            height: 99px;
+            position: absolute;
+            cursor: pointer;
+            overflow: auto;
+            border: 1px solid #000;
+            top: -35px;
+            display: block;
+            z-index: 99;
+        }
+        
+        .arrow-religion {
+            display: none;
+            position: absolute;
+            top: -55px;
+            left: 25px;
+            z-index: 9900
+        }
+        
+        .arrow-religionblock {
+            display: block;
+            position: absolute;
+            top: -46px;
+            left: 25px;
+            z-index: 9900;
+            height: 12px
+        }
+        
+        .religionlist {
+            display: -webkit-inline-box;
+            padding: 1rem
+        }
+        
+        .marriage-l {
+            position: relative;
+        }
+        
+        .marriageblk {
+            background: #fff;
+            width: 100%;
+            height: 150px;
+            position: absolute;
+            cursor: pointer;
+            overflow: auto;
+            border: 1px solid #000;
+            top: -59px;
+            display: none
+        }
+        
+        .marriageblk-show {
+            background: #fff;
+            width: 100%;
+            height: 118px;
+            position: absolute;
+            cursor: pointer;
+            overflow: auto;
+            border: 1px solid #000;
+            top: -38px;
+            display: block;
+            z-index: 99;
+        }
+        
+        .arrow-marriage {
+            display: none;
+            position: absolute;
+            top: -55px;
+            left: 25px;
+            z-index: 9900
+        }
+        
+        .arrow-marriageblock {
+            display: block;
+            position: absolute;
+            top: -49px;
+            left: 25px;
+            z-index: 9900;
+            height: 12px
+        }
+        
+        .marriagelist {
+            display: -webkit-inline-box;
+            padding: 1rem
+        }
+        
+        .list-group-item:hover {
+            background: #ee6f66c5;
+        }
+        /* ================calender============ */
+        .ui-datepicker .ui-datepicker-header {
+            position: relative;
+            padding: 1.2em 4px;
+            background: #ff6767;
+        }
+        .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+            position: absolute;
+            top: 2px;
+            width: 1.8em;
+            height: 3.8em;
+        }
+        .ui-state-default:hover{
+            border: 1px solid #c5c5c5;
+            background: #f06365;
+            font-weight: normal;
+            color: #000;
+        }
+        /* .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+            border: 1px solid #c5c5c5;
+            background: #f06365;
+            font-weight: normal;
+            color: #000;
+            line-height: 2rem;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 offset-2">
+                
+                    <h1>Register</h1>
+
+                    <hr>
+                    <form action="#" method="post" autocomplete="off">
+                    <div class="searchformfld">
+                        <label for="name" class="email">Full name <span class="red">*</span></label>
+                        <input type="text" class="candidateName" id="name" name="candidateName" placeholder=" ">
+                    </div>
+
+                    <div class="searchformfld">
+                        <label for="calender" class="calender">Date <span class="red">*</span></label>
+                        <input type="text" class="date" id="calender" name="calender" placeholder=" " style="padding: 0.6rem;">
+                    </div>
+                    <div class="searchformfld">
+                        <label for="mothertongue" class="motherTongue">Mother Tongue<span class="red">*</span></label>
+                        <input type="text" class="mothertongue" id="mothertongue" name="mothertongue" placeholder=" " style="padding: 0.6rem;">
+                    </div>
+                    <div class="m-language">
+                        <img class="arrowup arrow-molang" src="arrowup.png" alt="">
+                        <div class="motherlanguage" role="group" aria-label="Basic example">
+                            <ul class="list-group lan-list l-m">
+                                <li class="list-group-item language-list" name="language" value="Hindi">Hindi</li>
+                                <li class="list-group-item language-list" name="language" value="Telugu">Telugu</li>
+                                <li class="list-group-item language-list" name="language" value="English">English</li>
+                                <li class="list-group-item language-list" name="language" value="Hindi">Hindi</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="searchformfld">
+                        <label for="religion" class="religion">Religion<span class="red">*</span></label>
+                        <input type="text" class="candidateName" id="religion" name="religion" placeholder=" ">
+                    </div>
+                    <div class="religion-l">
+                        <div>
+                            <img class=" arrow-religion" src="arrowup.png" alt="">
+                            <div class="religionblk " role="group" aria-label="Basic example">
+                                <ul class="list-group religionlist">
+                                    <li class="list-group-item religionblk-list" name="religion" value="Jain">Jain</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="searchformfld">
+                        <label for="maritalstatus" class="maritalstatus">Marital status<span class="red">*</span></label>
+                        <input type="text" class="candidateName" id="maritalstatus" name="Maritalstatus" placeholder=" ">
+                    </div>
+                    <div class="marriage-l">
+                        <img class=" arrow-marriage" src="arrowup.png" alt="">
+                        <div class="marriageblk" role="group" aria-label="Basic example">
+                            <ul class="list-group marriagelist">
+                                <li class="list-group-item marriageblk-list" name="marriage" value="Never Married">Never Married</li>
+                                <li class="list-group-item marriageblk-list" name="marriage" value="Divorced">Divorced</li>
+                                <li class="list-group-item marriageblk-list" name="marriage" value="Widowed">Widowed</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="searchformfld">
+                        <label for="Height" class="Height">Height<span class="red">*</span></label>
+                        <input type="text" class="candidateName" id="Height" name="Height" placeholder=" ">
+                    </div>
+
+                    <button type="submit" class="registerbtn">Continue</button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript">
+        var languagecount = 0;
+        var religioncount = 0;
+        var marriagecount = 0;
+
+        var lang = document.querySelectorAll(".language-list");
+        for (var i = 0; i < lang.length; i++) {
+
+
+            $(lang[i]).on("click", () => {
+                // alert(1);
+                console.log()
+
+            })
+        }
+        $("#name").focus(function() {
+            $(".email").css({
+                "top": "25px",
+                "left": "-102px"
+            })
+        });
+        $("#calender").focus(function() {
+            $(".calender").css({
+                "top": "25px",
+                "left": "-73px"
+            })
+        })
+        $("#calender").datepicker({
+                showButtonPanel:true
+            });
+
+        $("#mothertongue").focus(function(e) {
+
+
+            $(".motherTongue").css({
+                "top": "25px",
+                "left": "-119px"
+            });
+            languagecount += 10;
+            $(".motherlanguage").attr("class", "motherlanguageblock");
+            $(".arrowup").attr("class", "arrowupblock")
+        })
+        $(".language-list").click((e) => {
+            // console.log($(this).attr('value'));
+
+            $(".motherlanguageblock").addClass("languagenone");
+            $(".arrowupblock").addClass("arrownone")
+        })
+        $(".lan-list li").click(function(e) {
+            var langli = $(this).attr("value")
+            $("#mothertongue").val(langli);
+            // $("input").val(langli);
+
+
+        });
+        $("#mothertongue").click((languagecount) => {
+            if (this.languagecount > 10) {
+                $(".motherlanguageblock").removeClass("languagenone");
+                $(".arrowupblock").removeClass("arrownone")
+            }
+        })
+        $("#psw").focus(function() {
+            $(".psw").css({
+                "top": "25px",
+                "left": "-139px"
+            })
+        })
+        $("#religion").focus(function(e) {
+            var religion = $(".list-group-item").val();
+            console.log(religion);
+
+            $(".religion").css({
+                "top": "25px",
+                "left": "-95px"
+            });
+            religioncount += 10;
+            $(".religionblk").attr("class", "religionblk-show");
+            $(".arrow-religion").addClass("arrow-religionblock")
+        })
+        $(".religionlist li").click(function() {
+            var religionli = $(this).attr("value");
+            $("#religion").val(religionli);
+        })
+        $(".religionblk-list").click((e) => {
+            $(".religionblk-show").addClass("languagenone");
+            $(".arrow-religion").addClass("arrownone")
+        })
+        $("#religion").click((religioncount) => {
+            if (this.religioncount > 10) {
+                $(".religionblk-show").removeClass("languagenone");
+                $(".arrow-religion").removeClass("arrownone")
+            }
+        })
+        $("#maritalstatus").focus(function() {
+            var mstatus = $(".list-group-item").val();
+            console.log(mstatus);
+            $(".maritalstatus").css({
+                "top": "25px",
+                "left": "-134px"
+            });
+            marriagecount += 10;
+            $(".marriageblk").addClass("marriageblk-show");
+            $(".arrow-marriage").addClass("arrow-marriageblock")
+        })
+        $(".marriageblk-list").click((e) => {
+            $(".marriageblk-show").addClass("languagenone");
+            $(".arrow-marriage").addClass("arrownone")
+        })
+        $("#maritalstatus").click((e) => {
+            if (this.marriagecount > 10) {
+                $(".marriageblk-show").removeClass("languagenone");
+                $(".arrow-marriage").removeClass("arrownone")
+            }
+        })
+        $(".marriagelist li").click(function() {
+            var mli = $(this).attr("value");
+            $("#maritalstatus").val(mli);
+        })
+        $("#Height").focus(function() {
+            $(".Height").css({
+                "top": "25px",
+                "left": "-90px"
+            })
+        })
+        $("#profilelabel").focus(function() {
+            $(".profilelabel").css({
+                "top": "25px",
+                "left": "-129px"
+            })
+        })
+
+        $("#gender").focus(function() {
+            $(".genderlabel").css({
+                "top": "25px",
+                "left": "-65px"
+            })
+        })
+        $("#profile").click(function() {
+            $(".profile").css("display", "none");
+            $(".profileshow").css("display", "block")
+        })
+        $("#self").click(function() {
+            $(".gender").css("display", "block")
+        })
+        $("#gender").click(function() {
+            $(".genderlabel2").css({
+                "top": "25px",
+                "left": "-65px"
+            });
+            $(".gender").css("display", "none");
+            $(".gendershow").css("display", "block")
+        })
+        $(".blocknone").click(function() {
+            $(".gendershow").css("display", "none");
+            $(".gender").hide(3300)
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
