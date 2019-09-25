@@ -339,11 +339,11 @@
                     <div class="m-language">
                         <img class="arrowup arrow-molang" src="arrowup.png" alt="">
                         <div class="motherlanguage" role="group" aria-label="Basic example">
-                            <ul class="list-group lan-list">
-                                <li class="list-group-item language-list" name="Hindi" value="Hindi">Hindi</li>
-                                <li class="list-group-item language-list" name="Telugu" value="Telugu">Telugu</li>
-                                <li class="list-group-item language-list" name="English" value="English">English</li>
-                                <li class="list-group-item language-list" name="Hindi" value="Hindi">Hindi</li>
+                            <ul class="list-group lan-list l-m">
+                                <li class="list-group-item language-list" name="language" value="Hindi">Hindi</li>
+                                <li class="list-group-item language-list" name="language" value="Telugu">Telugu</li>
+                                <li class="list-group-item language-list" name="language" value="English">English</li>
+                                <li class="list-group-item language-list" name="language" value="Hindi">Hindi</li>
                             </ul>
                         </div>
                     </div>
@@ -358,7 +358,7 @@
                             <img class=" arrow-religion" src="arrowup.png" alt="">
                             <div class="religionblk " role="group" aria-label="Basic example">
                                 <ul class="list-group religionlist">
-                                    <li class="list-group-item religionblk-list">Jain</li>
+                                    <li class="list-group-item religionblk-list" name="religion" value="Jain">Jain</li>
                                 </ul>
                             </div>
                         </div>
@@ -372,9 +372,9 @@
                         <img class=" arrow-marriage" src="arrowup.png" alt="">
                         <div class="marriageblk" role="group" aria-label="Basic example">
                             <ul class="list-group marriagelist">
-                                <li class="list-group-item marriageblk-list">Never Married</li>
-                                <li class="list-group-item marriageblk-list">Divorced</li>
-                                <li class="list-group-item marriageblk-list">Widowed</li>
+                                <li class="list-group-item marriageblk-list" name="marriage" value="Never Married">Never Married</li>
+                                <li class="list-group-item marriageblk-list" name="marriage" value="Divorced">Divorced</li>
+                                <li class="list-group-item marriageblk-list" name="marriage" value="Widowed">Widowed</li>
                             </ul>
                         </div>
                     </div>
@@ -432,20 +432,17 @@
             $(".arrowup").attr("class", "arrowupblock")
         })
         $(".language-list").click((e) => {
-            console.log($(this).attr('value'));
+            // console.log($(this).attr('value'));
 
             $(".motherlanguageblock").addClass("languagenone");
             $(".arrowupblock").addClass("arrownone")
         })
-        $(".lan-list").click(() => {
-            var lanlist = $(this).parent();
-            console.log($(this).parent() + "lanlist");
-            lanlist.addClass("select").siblings().removeClass("select");
-            $("#mothertongue").val(lanlist.data("value"));
+        $(".lan-list li").click(function(e) {
+            var langli = $(this).attr("value")
+            $("#mothertongue").val(langli);
+            // $("input").val(langli);
 
-            var language = $(this).children("li:selected").val();
-            var language = $(this).children("li:selected").val();
-            console.log(language + "language");
+
         });
         $("#mothertongue").click((languagecount) => {
             if (this.languagecount > 10) {
@@ -471,6 +468,10 @@
             $(".religionblk").attr("class", "religionblk-show");
             $(".arrow-religion").addClass("arrow-religionblock")
         })
+        $(".religionlist li").click(function() {
+            var religionli = $(this).attr("value");
+            $("#religion").val(religionli);
+        })
         $(".religionblk-list").click((e) => {
             $(".religionblk-show").addClass("languagenone");
             $(".arrow-religion").addClass("arrownone")
@@ -484,8 +485,6 @@
         $("#maritalstatus").focus(function() {
             var mstatus = $(".list-group-item").val();
             console.log(mstatus);
-            // $(".religion-l").hide();
-            // $(".m-language").hide();
             $(".maritalstatus").css({
                 "top": "25px",
                 "left": "-134px"
@@ -503,6 +502,10 @@
                 $(".marriageblk-show").removeClass("languagenone");
                 $(".arrow-marriage").removeClass("arrownone")
             }
+        })
+        $(".marriagelist li").click(function() {
+            var mli = $(this).attr("value");
+            $("#maritalstatus").val(mli);
         })
         $("#Height").focus(function() {
             $(".Height").css({
